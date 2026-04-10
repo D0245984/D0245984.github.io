@@ -3,9 +3,9 @@ title: 賴賴 Blog
 SEOTitle: 賴賴 | 賴賴 Blog
 header-img: img/home-bg.jpg
 email: eeff5049@gmail.com
-description: "这里是 @賴賴 的个人博客，与你一起发现更大的世界 | 要做一个有 swag 的程序员"
-keyword: "賴賴, 博客,互联网, Web, JavaScript, React, React Native, 前端, 设计"
-url: "https://huangxuan.me" # your host, for absolute URL
+description: "這裡是 @賴賴 的個人部落格，與你一起發現更大的世界 | 要做一個有 swag 的程式設計師"
+keyword: "賴賴, 部落格,網際網路, Web, JavaScript, React, React Native, 前端, 設計"
+url: "" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
 
 # Publish posts or collection documents with a future date.
@@ -13,10 +13,10 @@ future: true
 
 # SNS settings
 RSS: false
-weibo_username: huxpro
-zhihu_username: huxpro
-github_username: huxpro
-twitter_username: huxpro
+weibo_username:
+zhihu_username:
+github_username: D0245984
+twitter_username:
 #facebook_username:  huxpro
 #linkedin_username:  firstname-lastname-idxxxx
 
@@ -37,7 +37,6 @@ exclude:
   - "_posts/data_rep"
   - "_posts/read_sf_lf"
   - "_posts/read_sf_plf"
-  - "_posts/read_sf_qc"
 anchorjs: true # if you want to customize anchor. check out line:181 of `post.html`
 # If you have timezone issue (e.g. #68) in China, uncomment to use this:
 #timezone: CN
@@ -78,7 +77,7 @@ ga_domain: huangxuan.me
 
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
-sidebar-about-description: "要做一个有 swag 的程序员 <br> React Team @ Meta"
+sidebar-about-description: "要做一個有 swag 的程式設計師 <br> React Team @ Meta"
 sidebar-avatar: https://github.com/Huxpro.png # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # Featured Tags
@@ -93,14 +92,4 @@ service-worker: true
 page-mathjax: false
 
 # Friends
-friends:
-  [
-    { title: "乱序（Midare）", href: "http://mida.re/" },
-    { title: "Ebn Zhang", href: "https://ebnbin.dev/" },
-    { title: "Kun Qian", href: "http://kunq.me" },
-    { title: "Sherry Woo", href: "https://sherrywoo.me/" },
-    { title: "SmdCn", href: "http://blog.smdcn.net" },
-    { title: "JiyinYiyong", href: "http://tiye.me/" },
-    { title: "DHong Say", href: "http://dhong.co" },
-    { title: "尹峰以為", href: "http://ingf.github.io/" },
-  ]
+friends: []
