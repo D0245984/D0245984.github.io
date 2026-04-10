@@ -32,7 +32,12 @@ exclude:
   - "package.json"
   - "README.md"
   - "README.zh.md"
-  - "_posts/hidden"  # 加這一行
+  - "_posts/hidden"
+  - "_posts/cs_idols"
+  - "_posts/data_rep"
+  - "_posts/read_sf_lf"
+  - "_posts/read_sf_plf"
+  - "_posts/read_sf_qc"
 anchorjs: true # if you want to customize anchor. check out line:181 of `post.html`
 # If you have timezone issue (e.g. #68) in China, uncomment to use this:
 #timezone: CN

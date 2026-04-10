@@ -1,0 +1,281 @@
+---
+layout: post
+title: "GIT入門"
+subtitle: "從零開始學習版本控制"
+date: 2026-04-10
+author: "賴賴"
+header-style: text
+catalog: true
+tags:
+  - Git
+  - 開發工具
+---
+
+# Git 學習筆記
+
+## 什麼是Git？
+
+Git 是一個**分散式版本控制系統**，用於追蹤文件變更，協作開發。相比中央式版本控制（如SVN），Git 提供更強大的分支管理和離線工作能力。
+
+## 核心概念
+
+### Repository（倉庫）
+- 包含所有歷史版本和元數據的目錄
+- 分為：本地倉庫（.git）和遠端倉庫（GitHub/GitLab）
+
+### Commit（提交）
+- 保存一個時間點的代碼快照
+- 包含作者、時間戳、日誌和變更內容
+
+### Branch（分支）
+- 獨立的開發線
+- `main/master` 為主分支
+- 實現並行開發和特性隔離
+
+### Merge（合併）
+- 將一個分支的變更整合到另一個分支
+- 可能產生衝突需要手動解決
+
+## 初始設置
+
+```bash
+# 設置全局用戶信息
+git config --global user.name "Your Name"
+git config --global user.email "your@email.com"
+
+# 查看設置
+git config --list
+```
+
+## 基本操作
+
+### 1. 創建/克隆倉庫
+
+```bash
+# 初始化新倉庫
+git init
+
+# 克隆遠端倉庫
+git clone <repository-url>
+```
+
+### 2. 查看狀態
+
+```bash
+# 查看當前狀態
+git status
+
+# 查看具體改動
+git diff
+
+# 查看暫存區與最後提交的差異
+git diff --staged
+```
+
+### 3. 提交變更
+
+```bash
+# 添加文件到暫存區
+git add <file>
+git add .              # 添加所有變更
+
+# 提交到本地倉庫
+git commit -m "提交信息"
+
+# 查看提交歷史
+git log
+git log --oneline      # 簡潔顯示
+git log --graph        # 圖形化分支
+```
+
+## 分支管理
+
+```bash
+# 查看分支
+git branch                    # 本地分支
+git branch -a                 # 所有分支
+git branch -r                 # 遠端分支
+
+# 創建分支
+git branch <branch-name>
+
+# 切換分支
+git checkout <branch-name>
+git switch <branch-name>      # 新語法
+
+# 創建並切換分支（一步完成）
+git checkout -b <branch-name>
+git switch -c <branch-name>
+
+# 刪除分支
+git branch -d <branch-name>   # 安全刪除
+git branch -D <branch-name>   # 強制刪除
+```
+
+## 遠端操作
+
+```bash
+# 查看遠端倉庫
+git remote -v
+
+# 添加遠端倉庫
+git remote add origin <url>
+
+# 推送到遠端
+git push origin <branch-name>
+git push -u origin <branch>   # 首次推送，建立追蹤關係
+
+# 從遠端拉取
+git fetch origin              # 只下載，不合併
+git pull origin <branch>      # 下載並自動合併
+```
+
+## 合併與衝突
+
+```bash
+# 合併分支
+git merge <branch-name>
+
+# 查看衝突
+git status
+
+# 衝突標記如下：
+# <<<<<<< HEAD
+#   當前分支內容
+# =======
+#   要合併的分支內容
+# >>>>>>> feature-branch
+
+# 解決衝突後
+git add <resolved-file>
+git commit -m "解決衝突"
+```
+
+## 撤銷操作
+
+```bash
+# 撤銷工作區改動
+git checkout -- <file>
+git restore <file>           # 新語法
+
+# 撤銷暫存
+git reset HEAD <file>
+git restore --staged <file>
+
+# 軟重置（保留改動在工作區）
+git reset --soft HEAD~1
+
+# 混合重置（保留改動但從暫存區移除）
+git reset --mixed HEAD~1
+
+# 硬重置（完全丟棄改動）
+git reset --hard HEAD~1
+
+# 修改最後一個提交
+git commit --amend
+```
+
+## 常用工作流
+
+### Feature Branch Workflow
+1. 從 main 分支創建 feature 分支
+2. 在 feature 分支上開發
+3. 提交多個 commit
+4. 推送到遠端
+5. 創建 Pull Request/Merge Request
+6. 審查通過後合併回 main
+7. 刪除 feature 分支
+
+```bash
+git checkout -b feature/user-auth
+# ...編輯代碼...
+git add .
+git commit -m "實現用戶認證"
+git push origin feature/user-auth
+```
+
+## 進階技巧
+
+### Rebase（變基）
+```bash
+# 變基到 main 分支（保持提交歷史線性）
+git rebase main
+
+# 交互式變基（編輯/合併/重排提交）
+git rebase -i HEAD~3
+```
+
+### Stash（暫存）
+```bash
+# 暫存當前改動
+git stash
+
+# 查看暫存列表
+git stash list
+
+# 恢復暫存
+git stash pop               # 恢復並刪除
+git stash apply stash@{0}   # 恢復但保留
+```
+
+### Tag（標籤）
+```bash
+# 創建標籤（標記版本）
+git tag v1.0.0
+git tag -a v1.0.0 -m "版本 1.0.0"
+
+# 推送標籤
+git push origin v1.0.0
+git push origin --tags
+
+# 查看標籤
+git tag -l
+```
+
+## 常見問題排查
+
+| 問題 | 解決方案 |
+|-----|--------|
+| 提交到錯誤分支 | `git reset --soft HEAD~1` 然後切換分支重新提交 |
+| 誤刪文件 | `git restore <file>` 或 `git checkout -- <file>` |
+| 忘記添加文件 | `git commit --amend --no-edit` |
+| 看不到遠端分支 | `git fetch` 更新遠端引用 |
+| 推送被拒絕 | `git pull` 合併遠端變更後再推送 |
+
+## 最佳實踐
+
+1. **提交頻率** - 頻繁小提交比少數大提交更好
+2. **提交信息** - 清晰描述改動原因，不只是「修復」
+3. **分支命名** - 使用有意義的名稱：`feature/xxx`, `bugfix/xxx`, `hotfix/xxx`
+4. **保護主分支** - main/master 應受保護，只接受 PR
+5. **代碼審查** - PR 必須經過審查再合併
+6. **同步遠端** - 定期 `git fetch` 和 `git pull`
+
+## 快速參考
+
+```bash
+# 日常開發流程
+git status
+git add .
+git commit -m "描述改動"
+git push origin feature-branch
+git pull origin main              # 保持最新
+
+# 緊急查看提交歷史
+git log --oneline -10
+git show <commit-hash>
+
+# 快速恢復
+git reflog                        # 查看所有操作歷史
+git reset --hard <commit-hash>
+```
+
+## 學習資源
+
+- 官方文檔: https://git-scm.com/doc
+- 互動教程: https://learngitbranching.js.org/
+- 可視化: https://www.gitkraken.com/
+
+---
+
+**提示：** 掌握上述基本概念和常用命令後，熟能生巧是關鍵。建議在實際項目中持續練習，遇到問題通過 `git log` 和 `git reflog` 理解變更歷史。
